@@ -210,6 +210,48 @@ button.addEventListener("click", handleClick);
 
 
 ```html
+<!DOCTYPE html>
+<html>
+
+<body>
+ <div id="root"></div>
+    <span></span>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src ="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src ="https://unpkg.com/@babel/stanalone/babel.min.js"></script>
+<script type="text/babel"></script>
+<script>
+    const root =document.getElementById("root");
+    let counter = 0;
+    function countUP() {
+    counter = counter + 1;
+    render();
+}
+function render(){
+    ReactDOM.render(<Container/>, root);
+}
+const Container = () => (
+      <div>
+        <h3>
+            Total Clicks: {counter}
+        </h3>    
+        <button onClick={countUp}>Click me</button>
+
+        </div>
+    );
+    render();
+</script>
+</html>
+<!-- 바뀐부분 바로 업로드하기위함이필요함 -->
+```
+
+바로 리렌더링할수 있는 방법이 필요
+
+
+
+### state 변환 setState
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -220,21 +262,47 @@ button.addEventListener("click", handleClick);
 </body>
 <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 <script src ="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src ="https://unpkg.com/@babel/stanalone/babel.min.js"></script>
+<script type="text/babel"></script>
 <script>
     const root =document.getElementById("root");
-    const Container = <div>
-        <h3>
-            Hello I,m a title
-        </h3>    
-        <button
-         onClick{() => console.log("im clicked")}>Click me
-        </button>
-        <Title />
+    let counter = 0;
+    function countUP() {
+        counter = counter + 1;
+        render();
+    }
+    function App() {
+    const data = React.useState()
+    const [couter, modifier===setCounter] = React.useState(0);
+    const onClick = () => {
+    setCounter(counter+1);
     
-        <Button /> => JSX형식 단순글자가아닌 구성을 보여
-    </div>
-    ReactDOM.render(Container, root);
+    
+};
+    return (
+        <div>
+            <h3>Total clicks: {data[0]}</h3>
+            <button onClick={onClick}>Click me</button>
+        </div>
+);
+}
+
+
+const Container = () => (
+      <div>
+        <h3>
+            Total Clicks: {counter}
+        </h3>    
+        <button onClick={countUp}>Click me</button>
+
+        </div>
+    );
+    render();
 </script>
 </html>
+<!-- 바뀐부분 바로 업로드하기위함이필요함 --> 
 ```
-```
+
+> 배열의 형식 const [1,2,3] = x
+> 
+> 배열을 앞에 arr명을 뒤에 한다
