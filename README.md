@@ -592,3 +592,168 @@ ReactDOM.render(<App/>, root);
 ![](README_assets/2023-06-18-04-13-37-image.png)
 
 prop설정 옵션들 
+
+
+
+## React-create
+
+npm i prop-types : prop types package를 가져오느것
+
+```html
+import Button from "./Button";
+import styled from "./Button.module.css";
+import styles from "./App.module.css";
+;function App() {
+  const [counter, setValue] = userState(0);
+  const onClick = () => setValue((prev) => prev+1)
+  return (
+    <div>
+      <h1 className={styles.title}>Welcome back!!</h1>
+      <Button className={styled.btn} text={"Continue"} />
+    </div>
+  )
+}
+
+export default App;
+```
+
+### EFFECTS
+
+```html
+// import Button from "./Button";
+// import styled from "./Button.module.css";
+// import styles from "./App.module.css";
+import {useState} from "react";
+;function App() {
+  const [counter, setValue] = useState(0);
+  const onClick = () => setValue((prev) => prev+1)
+  console.log('render');
+  return (
+    <div>
+      <h1>{counter}</h1>
+      <button onClick={onClick}>click me</button>
+    </div>
+  )
+}
+
+export default App;
+```
+
+> useEffect를 사용하면 한번만 실행된다
+
+
+
+### useEffect
+
+```html
+// import Button from "./Button";
+// import styled from "./Button.module.css";
+// import styles from "./App.module.css";
+import {useState, useEffect} from "react";
+;function App() {
+  const [counter, setValue] = useState(0);
+  const onClick = () => setValue((prev) => prev+1)
+  console.log("i Run all the time")
+  useEffect(() => {
+    console.log("Call the api..")
+  } ,[]);
+
+  console.log('render');
+  return (
+    <div>
+      <h1>{counter}</h1>
+      <button onClick={onClick}>click me</button>
+    </div>
+  )
+}
+
+export default App;
+```
+
+```html
+// import Button from "./Button";
+// import styled from "./Button.module.css";
+// import styles from "./App.module.css";
+import {useState, useEffect} from "react";
+;function App() {
+  const [counter, setValue] = useState(0);
+  const [keyword, setkeyword] = useState("")
+  const onClick = () => setValue((prev) => prev+1)
+  const onChange = (event) => setkeyword(event.target.value);
+  console.log("i Run all the time")
+  useEffect(() => {
+    console.log("Call the api..")
+  } ,[]);
+  // useEffect(()=> {
+  //   if (keyword !== ""&& keyword.length > 5) {
+  //     console.log("SEARCH FOR", keyword)
+  //   };
+  useEffect(()=> {
+      console.log("i run when 'counter' changes")
+    }, [counter]);
+  useEffect(()=> {
+      console.log("i run when keyword & counter changes")
+    }, [keyword, counter]);
+  // 키워드가 바뀔때 이베느발생시킬땜 하려면 저렇게
+  // console.log('render')
+  return (
+    <div>
+      <input value={keyword} onChange={onChange} type="text" placeholder="Search here..."/>
+      <h1>{counter}</h1>
+      <button onClick={onClick}>click me</button>
+    </div>
+  )
+}
+
+
+export default App;
+```
+
+
+
+### Cleanup
+
+
+
+```html
+import {useState, useEffect} from "react";
+
+function Hello() {
+  function byFn() {
+    console.log("bye :(");
+  }
+  function effectFn(){
+    console.log('created :)');
+    return byFn;
+  }
+  useEffect(() => {
+    console.log("hi :)");
+    return function(){
+      console.log("bye :(");
+    };
+  }, []);
+  // 두코드 비교가 필요
+  useEffect(function() {
+    console.log("hi :)");
+    return function(){
+      console.log("bye :(");
+    };
+  }, []);
+  useEffect(effectFn, [])
+  return <h1>Hello</h1>
+}
+function App() {
+  const [showing, setShowing] =useState(false);
+  const onClick = () => setShowing((prev) => !prev);
+  return (<div>
+    {showing ? <Hello /> : null}
+    <button onClick={onClick}>{showing ? "Hide"  : "Show"}</button>
+  </div>
+  );
+}
+export default App;
+```
+
+두코드의 차이는 한줄이다/
+
+이론 끝
