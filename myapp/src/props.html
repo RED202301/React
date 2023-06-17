@@ -1,0 +1,45 @@
+    function Btn(props) {
+    console.log(props);
+    return <button style={{
+    backgroundColor: "tomato",
+    color:"white",
+    padding:"10px 20px",
+    border: 0,
+    borderRadius: 10,
+}}>
+     {props.banana}
+Save Changes</button>;
+}
+두코드의 차이점
+function ConfirmBtn({text, big, onClick}) {
+    onClick을 적지않으면단순한 props에 불과함
+    return (
+    <div>
+    <button 
+    onClick={onClick}
+    style={{     
+    backgroundColor: "tomato",
+    color:"white",
+    padding:"10px 20px",
+    border: 0,
+    borderRadius: 10, 
+    fontSize: big ? 18 : 16,           
+    }}>
+       {text}
+Confirm</button></div>
+);
+}
+const MevorizedBtn = React.memo(Btn)
+함수형 컴포넌트와 JSX
+function App() {
+    const [value, setValue] = React.useState("Save Changes")
+    const changeValue = () => setValue("Revert Changes");
+    return (
+        <div>
+            <MemorizedBtn text={value} onClick={changeValue}/>
+            <MemorizedBtn text="Continue"/>
+            두번째 continue는 계속 렌더링 되면 안됨 => 이문제를 해결하기 위해 memorize가 필욯마
+    <div/>);
+}
+const root = document.getElementById("root");
+ReactDOM.render(<App/>, root);
